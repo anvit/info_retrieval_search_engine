@@ -31,12 +31,12 @@ lit = 'http://www.dmoz.org/Arts/Literature/'
 hawking = 'http://www.dmoz.org/Science/Astronomy/'
 chan = 'http://www.dmoz.org/Sports/Martial_Arts/'
 bsnl4ka = 'http://www.dmoz.org/Sports/Cricket/'
-pat = Regexp.union /\/World\// , /\/docs\//, /\/public\//
+pat = Regexp.union /\/World\// , /\/docs\//, /\/public\// #ignore these url patterns
 Anemone.crawl(chan, :discard_page_bodies => true) do |anemone|
   anemone.skip_links_like pat
-  anemone.on_pages_like(/\/Sports\/Martial_Arts\//) do |page|
+  anemone.on_pages_like(/\/Sports\/Martial_Arts\//) do |page| #URL pattern to fetch
   	puts page.url
-  	temp = get_href(page.url.to_s,u_link)
+  	temp = get_href(page.url.to_s,u_link) #fetch external links from current url
   	if !temp.nil? 
 		temp.each { |url| 
 			if !url.nil?
@@ -49,4 +49,3 @@ Anemone.crawl(chan, :discard_page_bodies => true) do |anemone|
 	end
   end
 end
-
